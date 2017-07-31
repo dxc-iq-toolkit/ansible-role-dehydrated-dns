@@ -1,10 +1,11 @@
 ---
 
-- name: Make sure pip and git are installed and up-to-date
+- name: Make sure dehydrated dependencies are installed and up-to-date
   package:
     name:
       - python-pip
       - git
+      - curl
     state: latest
 
 - name: Install hook script python dependencies to system python
@@ -70,10 +71,9 @@
     mode: 0644
   tags: dehydrated
 
-
 - name: Copy hook script
   copy:
-    src: ../files/route53.py
+    src: scripts/route53.py
     dest: "{{ dehydrated_dir }}"
     mode: 0775
   tags: dehydrated

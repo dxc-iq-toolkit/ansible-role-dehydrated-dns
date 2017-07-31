@@ -20,3 +20,4 @@
     AWS_SECRET_ACCESS_KEY: "{{ ec2_secret_key }}"
   roles:
     - role: dehydrated-dns
+      #letsencrypt_url: "acme-v01.api.letsencrypt.org"
