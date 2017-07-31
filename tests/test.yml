@@ -1,0 +1,16 @@
+---
+
+- name: Bring up test docker containers
+  hosts: localhost
+  gather_facts: false
+  vars:
+    inventory:
+      - name: dehydrated_host_1
+        image: "ubuntu-upstart:14.04"
+  roles:
+    - role: chrismeyersfsu.provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+
+- name: Try signing a certificate
+  roles:
+    - ..

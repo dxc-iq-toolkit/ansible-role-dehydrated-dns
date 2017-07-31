@@ -1,0 +1,6 @@
+CA="https://{{ dehydrated_ca_domain }}/directory"
+CA_TERMS="https://{{ dehydrated_ca_domain }}/terms"
+
+CHALLENGETYPE="dns-01"
+HOOK="{{ dehydrated_dir }}/route53.py"
+CONTACT_EMAIL="{{ dehydrated_contact_email }}"

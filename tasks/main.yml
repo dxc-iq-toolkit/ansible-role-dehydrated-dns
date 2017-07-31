@@ -1,0 +1,81 @@
+---
+
+- name: Install hook script python dependencies to system python
+  pip: 
+    name: boto
+    state: latest
+  tags: dehydrated
+
+- name: Copy .boto config file with AWS keys
+  copy: 
+    src: "{{ boto_config_file }}" 
+    dest: "{{ boto_config_dest }}"
+    mode: 0600
+  when: boto_config_file is defined and boto_config_file
+  tags: 
+    - dehydrated
+    - boto
+
+- name: Clone down dehydrated repo
+  git:
+    repo: "{{ dehydrated_repo }}"
+    dest: "{{ dehydrated_repo_dir }}"
+    accept_hostkey: yes
+  tags: dehydrated
+
+- name: Copy dehydrated executable to a location in PATH
+  copy:
+    remote_src: True
+    src: "{{ dehydrated_repo_dir }}/dehydrated"
+    dest: "/usr/local/bin"
+    mode: 0755
+  tags: dehydrated
+
+- name: Create directory for supporting dehydrated files
+  file: 
+    path: "{{ dehydrated_dir }}" 
+    state: directory 
+    mode: 0755
+  tags: dehydrated
+
+- name: Create WELLKNOWN directory to satisfy dehydrated
+  file:
+    path: "/var/www/dehydrated"
+    state: directory
+    mode: 0755
+  tags: dehydrated
+
+- name: Copy config file
+  template:
+    src: config.j2
+    dest: "{{ dehydrated_dir }}/config"
+    owner: root
+    group: root
+    mode: 0644
+  tags: dehydrated
+
+- name: Copy domains file
+  template:
+    src: domains.j2
+    dest: "{{ dehydrated_dir }}/domains.txt"
+    owner: root
+    group: root
+    mode: 0644
+  tags: dehydrated
+
+
+- name: Copy hook script
+  copy:
+    src: ../files/route53.py
+    dest: "{{ dehydrated_dir }}"
+    mode: 0775
+  tags: dehydrated
+
+- name: Generate certificate
+  environment:
+    HOSTED_ZONE: "{{ hosted_zone_name }}"
+    HOSTED_ZONE_ID: "{{ hosted_zone_id }}"
+  shell:
+    cmd: "{{ dehydrated_executable }} -c -t dns-01 --accept-terms --out {{ cert_output_dir }}"
+  register: cetificates_resp
+  tags: dehydrated
