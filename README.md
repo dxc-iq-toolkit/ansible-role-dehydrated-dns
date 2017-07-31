@@ -24,7 +24,7 @@ Role Variables
 
 ### Optional
 
-`subdomains`: optional list of subdomains to validate on the signed cert.
+`subdomains`: optional list of FQDN subdomains to validate on the signed cert.
 `dehydrated_ca_domain`: URL of LetsEncrypt CA endpoint. Defaults to [LetsEncrypt staging API](https://letsencrypt.org/docs/staging-environment/) since production is rate-limited (see comment in `defaults/main.yml` for production endpoint).
 `boto_config_file`: if defined, provides a path to a [boto config file](http://boto.cloudhackers.com/en/latest/boto_config_tut.html) relative to your playbook which will be injected into the environment during role execution.
 `boto_config_dest`: if `boto_config_file` is provided, you can optionally specify where the config file will be placed. Default: `/etc/boto.cfg`

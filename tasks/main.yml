@@ -1,5 +1,12 @@
 ---
 
+- name: Make sure pip and git are installed and up-to-date
+  package:
+    name:
+      - python-pip
+      - git
+    state: latest
+
 - name: Install hook script python dependencies to system python
   pip: 
     name: boto
