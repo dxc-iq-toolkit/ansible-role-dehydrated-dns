@@ -7,3 +7,9 @@ boto_config_dest: /etc/boto.cfg
 dehydrated_repo_dir: "~/dehydrated"
 
 dehydrated_dir: "/etc/dehydrated"
+
+base_domains:
+  - "{{ hosted_zone_domain }}"
+  - "www.{{ hosted_zone_domain }}"
+  
+domains_to_sign: "{{ subdomains|default([]) + base_domains }}"
