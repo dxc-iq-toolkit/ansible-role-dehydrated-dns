@@ -2,7 +2,7 @@
 
 private_key_length: 2048 # max length supported by AWS ACM
 
-dehydrated_ca_domain: "acme-staging.api.letsencrypt.org" 
+letsencrypt_url: "acme-staging.api.letsencrypt.org" 
 # production LetsEncrypt endpoint: acme-v01.api.letsencrypt.org (CAUTION: RATE-LIMITED BY DOMAIN!)
 
 boto_config_dest: /etc/boto.cfg
