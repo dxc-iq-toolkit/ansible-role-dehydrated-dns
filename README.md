@@ -20,7 +20,7 @@ Role Variables
 ### Required
 
 `hosted_zone_domain`: domain name associated with the AWS Route 53 hosted zone where your DNS entry will be created
-`hosted_zone_id`: if you have both a public and private hosted zone associated with your domain name
+`hosted_zone_id`: only required if you have both a public and private hosted zone associated with your domain name
 
 ### Optional
 
@@ -36,11 +36,17 @@ Role Variables
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: certserver
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: marcusianlevine.dehydrated-dns
+          hosted_zone_domain: mydomain.com
+
+Local signing with Docker
+---------------
+
+The playbook in `tests` can be used to sign certificates locally inside a Docker container.
+
+Note that most variables for the test playbook are defined in the `vault.yml` secrets file.
 
 License
 -------
