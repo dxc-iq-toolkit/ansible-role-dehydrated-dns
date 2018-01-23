@@ -16,3 +16,6 @@ base_domains:
   - "www.{{ hosted_zone_domain }}"
 
 domains_to_sign: "{{ subdomains|default([]) + base_domains }}"
+
+retry_count: 3
+retry_delay: 30
