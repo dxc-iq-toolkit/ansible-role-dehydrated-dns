@@ -84,8 +84,8 @@
     HOSTED_ZONE_ID: "{{ hosted_zone_id }}"
   shell:
     cmd: "{{ dehydrated_executable }} -c -t dns-01 --accept-terms --out {{ cert_output_dir }}"
-  register: cetificates_resp
-  until: certificates_resp.rc == 0
+  register: cert_result
+  until: cert_result.rc == 0
   retries: "{{ retry_count }}"
   delay: "{{ retry_delay }}"
   tags: dehydrated
